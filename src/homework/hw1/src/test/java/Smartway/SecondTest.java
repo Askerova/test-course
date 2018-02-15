@@ -1,0 +1,52 @@
+package Second;
+
+import org.junit.AfterClass;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import java.util.concurrent.TimeUnit;
+
+public class SecondTest {
+
+    private static WebDriver driver;
+
+    @BeforeClass
+    public static void setup() {
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Olga\\IdeaProjects\\First-test\\chromedriver.exe");
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.get("https://yandex.ru");
+    }
+    @Test
+    public void userLogin() {
+        WebElement FindSet = driver.findElement(By.xpath("//*[text()='Настройка']"));
+        FindSet.click();
+        WebElement SetPort = driver.findElement(By.xpath("(//*[@target='_self'])[5]"));
+        SetPort.click();
+        WebElement FindLang = driver.findElement(By.xpath("//*[@data-statlog='tabs.lang']"));
+        FindLang.click();
+        WebElement ChangeLang = driver.findElement(By.xpath("//button[@type='button']"));
+        ChangeLang.click();
+        WebElement EngLang = driver.findElement(By.xpath("(//*[text()='English'])[2]"));
+        EngLang.click();
+        WebElement Butsub = driver.findElement(By.xpath("//button[@type='submit']"));
+        Butsub.click();
+        WebElement FindSetz = driver.findElement(By.xpath("//*[text()='Настройка']"));
+        FindSetz.click();
+        WebElement SetPortz = driver.findElement(By.xpath("(//*[@target='_self'])[5]"));
+        SetPortz.click();
+
+        WebElement TextEng = driver.findElement(By.xpath("//*[@data-statlog='tabs.passport']"));
+        String Proverka = TextEng.getText();
+        Assert.assertEquals("Passport", Proverka);
+    }
+    @AfterClass
+    public static void tearDown() {
+        driver.quit();
+    }
+}
